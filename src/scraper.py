@@ -7,15 +7,17 @@ r = htmlSession.get(URL)
 
 r.html.render()
 
+pizzas = {"original": [], "tynn": [], "vegansk": [], "dessert": []}
+
 links = r.html.absolute_links
 for link in links:
-    for category in ["original", "tynn", "vegansk", "dessert"]:
+    for category in pizzas.keys():
         if category in link:
-            print("Options")
             session = htmlSession.get(link)
             session.html.render()
+            
+            options = session.html.find(".content")
+            for option in options:
+                pizzas[category].append(option.text)
 
-
-            pizzas = session.html.find(".content")
-            for pizza in pizzas:
-                print(pizza.text)
+print(pizzas)
