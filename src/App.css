@@ -1,6 +1,6 @@
 :root {
   --pbBackgroundColor: #fff1c1;
-  --pbRedColor: #861c15;
+  --pbRedColor: #761f18;
   --pbYellowColor: #faac18;
   --pbLightYellowColor: #ffd974;
 }
@@ -14,12 +14,12 @@ header {
   width: 100%;
   position: fixed;
   top: 0;
-  height: 150px;
 }
 
 header img {
   margin-left: 20px;
   margin-top: 10px;
+  max-width: calc(100% - 40px);
 }
 
 #possiblePizzas {
