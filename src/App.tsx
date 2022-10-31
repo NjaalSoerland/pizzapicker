@@ -1,6 +1,7 @@
 import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Confetti from "react-confetti";
 
 function App() {
   const apiURL = "https://pizzapicker-api.vercel.app/";
@@ -26,8 +27,8 @@ function App() {
   ]);
 
   const [pizzaOptions, setPizzaOptions] = useState<pizzaInterface[]>([]);
-
   const [selectedPizza, setSelectedPizza] = useState<pizzaInterface | null>();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handleChange = (type: string) => {
     if (activeCatergories.includes(type)) {
@@ -40,6 +41,10 @@ function App() {
   const getRandomPizza = () => {
     const randomPizza = Math.floor(Math.random() * pizzaOptions.length);
     setSelectedPizza(pizzaOptions[randomPizza]);
+    setShowConfetti(true);
+    setTimeout(() => {
+      setShowConfetti(false);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -109,6 +114,15 @@ function App() {
             <button onClick={() => console.log(getRandomPizza())}>
               Get pizza
             </button>
+            {showConfetti ? (
+              <Confetti
+                numberOfPieces={300}
+                recycle={false}
+                colors={["#761f18", "#faac18", "#ffffff", "#000000"]}
+                gravity={0.5}
+                initialVelocityY={-20}
+              />
+            ) : null}
             {selectedPizza ? (
               <div>
                 <h3>Congratulations! You got {selectedPizza.name}!</h3>
