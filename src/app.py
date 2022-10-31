@@ -1,9 +1,12 @@
 from requests_html import AsyncHTMLSession
 from flask import Flask
+from flask_cors import CORS, cross_origin
 import nest_asyncio
 nest_asyncio.apply()
 
 app = Flask(__name__)
+cors = CORS(app)
+
 @app.route('/', methods=['GET'])
 async def fetchPizzas(URL = "https://www.pizzabakeren.no/originalpizza"):
     htmlSession = AsyncHTMLSession()
