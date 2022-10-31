@@ -1,22 +1,29 @@
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [pizzas, setPizzas] = useState({
-    dessert: [],
-    original: [],
-    tynn: [],
-    vegansk: [],
-  });
+  interface pizzaInterface {
+    name: string;
+    description: string;
+    extra: string;
+  }
+
+  const [pizzas, setPizzas] = useState<{
+    dessert: pizzaInterface[];
+    original: pizzaInterface[];
+    tynn: pizzaInterface[];
+    vegansk: pizzaInterface[];
+  }>({ dessert: [], original: [], tynn: [], vegansk: [] });
+
   const [activeCatergories, setActiveCatergories] = useState([
     "original",
     "tynn",
     "vegansk",
     "dessert",
   ]);
-  const [pizzaOptions, setPizzaOptions] = useState([""]);
+
+  const [pizzaOptions, setPizzaOptions] = useState<pizzaInterface[]>([]);
 
   const handleChange = (type: string) => {
     if (activeCatergories.includes(type)) {
@@ -40,9 +47,10 @@ function App() {
       });
   }, []);
 
-  // Crete one list with all the pizzas from the active categories
   useEffect(() => {
-    let pizzaList: string[] = [];
+    let pizzaList: pizzaInterface[] = [
+      { name: "", description: "", extra: "" },
+    ];
     activeCatergories.forEach((category) => {
       pizzaList = [...pizzaList, ...pizzas[category as keyof typeof pizzas]];
     });
@@ -63,8 +71,9 @@ function App() {
           </div>
         );
       })}
+      Possible options:
       {pizzaOptions.map((pizza) => {
-        return <p key={pizza}>{pizza}</p>;
+        return <p key={pizza.name}>{pizza.name}</p>;
       })}
     </div>
   );

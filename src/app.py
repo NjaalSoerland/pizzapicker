@@ -24,8 +24,13 @@ async def fetchPizzas(URL = "https://www.pizzabakeren.no/originalpizza"):
                 session.html.arender()
                 
                 options = session.html.find(".content")
+                
                 for option in options:
-                    pizzas[category].append(option.text)
+                    summary = option.text.split("\n")
+                    if len(summary) < 3:
+                        summary.append("Ingen")
+                    pizza = {"name": summary[0], "description": summary[1], "extra": summary[2]}
+                    pizzas[category].append(pizza)
 
     return pizzas
 
