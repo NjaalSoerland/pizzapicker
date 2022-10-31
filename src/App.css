@@ -1,25 +1,47 @@
+:root {
+  --pbBackgroundColor: #fff1c1;
+  --pbRedColor: #861c15;
+  --pbYellowColor: #faac18;
+  --pbLightYellowColor: #ffd974;
+}
+
 body {
-  background-color: #e6a330;
+  background-color: var(--pbBackgroundColor);
+}
+
+header {
+  background-color: var(--pbRedColor);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 150px;
+}
+
+header img {
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 #possiblePizzas {
   position: absolute;
   width: 20%;
-  height: 80%;
+  height: calc(90% - 200px);
   left: 70%;
   overflow-y: scroll;
-  top: 160px;
-  background-color: #700c04;
-  color: #e6a330;
+  top: 200px;
+  background-color: var(--pbLightYellowColor);
+  color: var(--pbRedColor);
   padding: 0 20px 0 20px;
   z-index: 2;
 }
 
 #options {
   display: flex;
-  width: 70%;
-  margin-top: 50px;
+  width: 60%;
+  margin: 200px 0 0 5%;
+  padding: 20px 0 20px 0;
   justify-content: space-evenly;
+  background-color: var(--pbLightYellowColor);
 }
 
 #selectedPizza {
@@ -27,23 +49,47 @@ body {
   width: 50%;
   left: 10%;
   text-align: center;
-  top: 200px;
+  top: 400px;
 }
 
 #selectedPizza button {
-  background-color: #700c04;
-  color: #e6a330;
+  background-color: var(--pbRedColor);
+  color: var(--pbYellowColor);
   border: none;
   width: 200px;
   font-size: 30px;
+  font-weight: bold;
 }
 
 input {
   width: 25px;
   height: 25px;
-  accent-color: #700c04;
+  accent-color: var(--pbRedColor);
 }
 
 label {
   font-size: 25px;
+}
+
+@media only screen and (max-width: 1000px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  #options {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  input {
+    margin: 10px;
+    width: 15px;
+    height: 15px;
+  }
+
+  label {
+    font-size: 20px;
+  }
 }

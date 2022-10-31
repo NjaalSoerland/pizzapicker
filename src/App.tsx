@@ -68,6 +68,9 @@ function App() {
 
   return (
     <div className="App">
+      <header>
+        <img src={require("./logo.png")} alt={"dumb logo"}></img>
+      </header>
       <div id={"options"}>
         {Object.keys(pizzas).map((type) => {
           return (
@@ -75,9 +78,10 @@ function App() {
               <input
                 type="checkbox"
                 onChange={() => handleChange(type)}
+                id={type}
                 defaultChecked
               />
-              <label>{type}</label>
+              <label htmlFor={type}>{type}</label>
             </div>
           );
         })}
