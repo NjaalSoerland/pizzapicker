@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function App() {
-  const apiURL = "http://localhost:5000";
+  const apiURL = "https://pizzapicker-backend.vercel.app/";
 
   interface pizzaInterface {
     name: string;
