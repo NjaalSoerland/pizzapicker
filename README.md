@@ -1,19 +1,8 @@
-# A dumb app for getting a random pizza from pizzabakeren
+# The frontend for a dumb app for getting random pizzas from pizzabakeren
 
 ## To run:
-
-### First terminal:
-
-```
-cd src
-flask run
-```
-
-### Second terminal:
 
 ```
 npm install
 npm start
 ```
-
-## Enjoy
