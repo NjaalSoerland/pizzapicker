@@ -118,7 +118,7 @@ function App() {
               <Confetti
                 numberOfPieces={300}
                 recycle={false}
-                colors={["#761f18", "#faac18", "#ffffff", "#000000"]}
+                colors={["#761f18", "#faac18", "#fff1c1", "#fee39f"]}
                 gravity={0.5}
                 initialVelocityY={-20}
               />
