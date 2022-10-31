@@ -141,9 +141,13 @@ function App() {
         </div>
         <div id={"possiblePizzas"}>
           <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
-          {pizzaOptions.map((pizza) => {
-            return <p key={pizza.name}>{pizza.name}</p>;
-          })}
+          {pizzaOptions.length ? (
+            pizzaOptions.map((pizza) => {
+              return <p key={pizza.name}>{pizza.name}</p>;
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
       </div>
     </div>
