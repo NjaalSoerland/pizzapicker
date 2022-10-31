@@ -69,46 +69,68 @@ function App() {
   return (
     <div className="App">
       <header>
-        <img src={require("./logo.png")} alt={"dumb logo"}></img>
+        <div id={"logoContainer"}>
+          <img src={require("./logo.png")} alt={"dumb logo"} />
+        </div>
       </header>
-      <div id={"options"}>
-        {Object.keys(pizzas).map((type) => {
-          return (
-            <div key={type}>
-              <input
-                type="checkbox"
-                onChange={() => handleChange(type)}
-                id={type}
-                defaultChecked
-              />
-              <label htmlFor={type}>{type}</label>
-            </div>
-          );
-        })}
-      </div>
-
-      <div id={"possiblePizzas"}>
-        <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
-        {pizzaOptions.map((pizza) => {
-          return <p key={pizza.name}>{pizza.name}</p>;
-        })}
-      </div>
-      <div id={"selectedPizza"}>
-        <button onClick={() => console.log(getRandomPizza())}>Get pizza</button>
-        {selectedPizza ? (
-          <div>
-            <h3>Congratulations! You got {selectedPizza.name}!</h3>
-            <h3>Description:</h3>
-            <div>{selectedPizza.description}</div>
-            <h3>Extra:</h3>
-            <div>{selectedPizza.extra}</div>
+      <div id={"content"}>
+        <img
+          src={require("./images/almost_pizza.png")}
+          alt={"pizza"}
+          id={"pizzaOne"}
+        />
+        <img
+          src={require("./images/eating_pizza.png")}
+          alt={"pizza"}
+          id={"pizzaTwo"}
+        />
+        <img
+          src={require("./images/pizza_slice.png")}
+          alt={"pizza"}
+          id={"pizzaThree"}
+        />
+        <div id={"selection"}>
+          <div id={"options"}>
+            {Object.keys(pizzas).map((type) => {
+              return (
+                <div key={type}>
+                  <input
+                    type="checkbox"
+                    onChange={() => handleChange(type)}
+                    id={type}
+                    defaultChecked
+                  />
+                  <label htmlFor={type}>{type}</label>
+                </div>
+              );
+            })}
           </div>
-        ) : (
-          <h3>
-            You haven't gotten a pizza yet, click the button above to see what
-            you get!
-          </h3>
-        )}
+          <div id={"selectedPizza"}>
+            <button onClick={() => console.log(getRandomPizza())}>
+              Get pizza
+            </button>
+            {selectedPizza ? (
+              <div>
+                <h3>Congratulations! You got {selectedPizza.name}!</h3>
+                <h3>Description:</h3>
+                <div>{selectedPizza.description}</div>
+                <h3>Extra:</h3>
+                <div>{selectedPizza.extra}</div>
+              </div>
+            ) : (
+              <h3>
+                You haven't gotten a pizza yet, click the button above to see
+                what you get!
+              </h3>
+            )}
+          </div>
+        </div>
+        <div id={"possiblePizzas"}>
+          <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
+          {pizzaOptions.map((pizza) => {
+            return <p key={pizza.name}>{pizza.name}</p>;
+          })}
+        </div>
       </div>
     </div>
   );
