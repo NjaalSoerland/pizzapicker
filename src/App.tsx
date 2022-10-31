@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function App() {
+  const apiURL = "http://localhost:5000";
+
   interface pizzaInterface {
     name: string;
     description: string;
@@ -25,6 +27,8 @@ function App() {
 
   const [pizzaOptions, setPizzaOptions] = useState<pizzaInterface[]>([]);
 
+  const [selectedPizza, setSelectedPizza] = useState<pizzaInterface | null>();
+
   const handleChange = (type: string) => {
     if (activeCatergories.includes(type)) {
       setActiveCatergories(activeCatergories.filter((item) => item !== type));
@@ -33,7 +37,10 @@ function App() {
     }
   };
 
-  const apiURL = "http://localhost:5000";
+  const getRandomPizza = () => {
+    const randomPizza = Math.floor(Math.random() * pizzaOptions.length);
+    setSelectedPizza(pizzaOptions[randomPizza]);
+  };
 
   useEffect(() => {
     axios
@@ -48,33 +55,57 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let pizzaList: pizzaInterface[] = [
-      { name: "", description: "", extra: "" },
-    ];
+    let pizzaList: pizzaInterface[] = [];
     activeCatergories.forEach((category) => {
       pizzaList = [...pizzaList, ...pizzas[category as keyof typeof pizzas]];
     });
     setPizzaOptions(pizzaList);
   }, [activeCatergories, pizzas]);
 
+  useEffect(() => {
+    console.log(pizzaOptions);
+  }, [pizzaOptions]);
+
   return (
     <div className="App">
-      {Object.keys(pizzas).map((type) => {
-        return (
-          <div key={type}>
-            <input
-              type="checkbox"
-              onChange={() => handleChange(type)}
-              defaultChecked
-            />
-            <label>{type}</label>
+      <div id={"options"}>
+        {Object.keys(pizzas).map((type) => {
+          return (
+            <div key={type}>
+              <input
+                type="checkbox"
+                onChange={() => handleChange(type)}
+                defaultChecked
+              />
+              <label>{type}</label>
+            </div>
+          );
+        })}
+      </div>
+
+      <div id={"possiblePizzas"}>
+        <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
+        {pizzaOptions.map((pizza) => {
+          return <p key={pizza.name}>{pizza.name}</p>;
+        })}
+      </div>
+      <div id={"selectedPizza"}>
+        <button onClick={() => console.log(getRandomPizza())}>Get pizza</button>
+        {selectedPizza ? (
+          <div>
+            <h3>Congratulations! You got {selectedPizza.name}!</h3>
+            <h3>Description:</h3>
+            <div>{selectedPizza.description}</div>
+            <h3>Extra:</h3>
+            <div>{selectedPizza.extra}</div>
           </div>
-        );
-      })}
-      Possible options:
-      {pizzaOptions.map((pizza) => {
-        return <p key={pizza.name}>{pizza.name}</p>;
-      })}
+        ) : (
+          <h3>
+            You haven't gotten a pizza yet, click the button above to see what
+            you get!
+          </h3>
+        )}
+      </div>
     </div>
   );
 }
