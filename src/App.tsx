@@ -135,7 +135,7 @@ function App() {
             </button>
             {showConfetti ? (
               <Confetti
-                numberOfPieces={200}
+                numberOfPieces={20}
                 recycle={false}
                 colors={["#761f18", "#faac18", "#fff1c1", "#fee39f"]}
                 gravity={0.5}
