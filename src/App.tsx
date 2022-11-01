@@ -48,10 +48,12 @@ function App() {
     const randomPizza = Math.floor(Math.random() * pizzaOptions.length);
     setSelectedPizza(pizzaOptions[randomPizza]);
     setConfettiPositionOnButton();
-    setShowConfetti(true);
-    setTimeout(() => {
-      setShowConfetti(false);
-    }, 3000);
+    if (pizzaOptions.length) {
+      setShowConfetti(true);
+      setTimeout(() => {
+        setShowConfetti(false);
+      }, 3000);
+    }
   };
 
   const setConfettiPositionOnButton = () => {
