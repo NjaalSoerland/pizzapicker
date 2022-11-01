@@ -29,6 +29,12 @@ function App() {
   const [pizzaOptions, setPizzaOptions] = useState<pizzaInterface[]>([]);
   const [selectedPizza, setSelectedPizza] = useState<pizzaInterface | null>();
   const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiPosition, setConfettiPosition] = useState({
+    x: 0,
+    y: 0,
+    w: window.innerWidth,
+    h: 0,
+  });
 
   const handleChange = (type: string) => {
     if (activeCatergories.includes(type)) {
@@ -41,10 +47,25 @@ function App() {
   const getRandomPizza = () => {
     const randomPizza = Math.floor(Math.random() * pizzaOptions.length);
     setSelectedPizza(pizzaOptions[randomPizza]);
+    setConfettiPositionOnButton();
     setShowConfetti(true);
     setTimeout(() => {
       setShowConfetti(false);
     }, 3000);
+  };
+
+  const setConfettiPositionOnButton = () => {
+    // get the position of the button with the id "getPizza"
+    const button = document.getElementById("getPizza");
+    if (button) {
+      const buttonPosition = button.getBoundingClientRect();
+      setConfettiPosition({
+        x: buttonPosition.x,
+        y: buttonPosition.y + 50,
+        w: buttonPosition.width,
+        h: buttonPosition.height,
+      });
+    }
   };
 
   useEffect(() => {
@@ -66,10 +87,6 @@ function App() {
     });
     setPizzaOptions(pizzaList);
   }, [activeCatergories, pizzas]);
-
-  useEffect(() => {
-    console.log(pizzaOptions);
-  }, [pizzaOptions]);
 
   return (
     <div className="App">
@@ -111,16 +128,18 @@ function App() {
             })}
           </div>
           <div id={"selectedPizza"}>
-            <button onClick={() => console.log(getRandomPizza())}>
+            <button onClick={() => getRandomPizza()} id={"getPizza"}>
               Get pizza
             </button>
             {showConfetti ? (
               <Confetti
-                numberOfPieces={300}
+                numberOfPieces={200}
                 recycle={false}
                 colors={["#761f18", "#faac18", "#fff1c1", "#fee39f"]}
                 gravity={0.5}
-                initialVelocityY={-20}
+                initialVelocityY={20}
+                initialVelocityX={30}
+                confettiSource={confettiPosition}
               />
             ) : null}
             {selectedPizza ? (
