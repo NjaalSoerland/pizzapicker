@@ -7,4 +7,6 @@ npm install
 npm start
 ```
 
-The site is also running on https://pizzapicker.vercel.app/
+The site is running on https://pizzapicker.vercel.app/
+
+The api used to get the pizzas can be found here https://github.com/NjaalSoerland/pizzapicker-api
