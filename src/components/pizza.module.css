@@ -1,0 +1,36 @@
+.regular,
+.thin,
+.vegan,
+.candy {
+  width: 200px;
+  height: 200px;
+  margin-left: 50px;
+  display: inline-block;
+  background-size: 200px 200px;
+}
+
+.regular {
+  background-image: url("../images/pizza_regular.webp");
+}
+
+.thin {
+  background-image: url("../images/pizza_thin.webp");
+}
+
+.vegan {
+  background-image: url("../images/pizza_vegan.png");
+}
+
+.candy {
+  background-image: url("../images/pizza_candy.webp");
+}
+
+.name {
+  position: relative;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 200px;
+  color: var(--pbRedColor);
+  z-index: 0;
+}

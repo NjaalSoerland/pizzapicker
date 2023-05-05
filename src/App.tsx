@@ -2,21 +2,17 @@ import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
+import { PizzaInterface } from "./components/pizza";
+import Wheel from "./components/wheel";
 
 function App() {
   const apiURL = "https://pizzapicker-api.vercel.app/";
 
-  interface pizzaInterface {
-    name: string;
-    description: string;
-    extra: string;
-  }
-
   const [pizzas, setPizzas] = useState<{
-    dessert: pizzaInterface[];
-    original: pizzaInterface[];
-    tynn: pizzaInterface[];
-    vegansk: pizzaInterface[];
+    dessert: PizzaInterface[];
+    original: PizzaInterface[];
+    tynn: PizzaInterface[];
+    vegansk: PizzaInterface[];
   }>({ dessert: [], original: [], tynn: [], vegansk: [] });
 
   const [activeCatergories, setActiveCatergories] = useState([
@@ -26,8 +22,8 @@ function App() {
     "dessert",
   ]);
 
-  const [pizzaOptions, setPizzaOptions] = useState<pizzaInterface[]>([]);
-  const [selectedPizza, setSelectedPizza] = useState<pizzaInterface | null>();
+  const [pizzaOptions, setPizzaOptions] = useState<PizzaInterface[]>([]);
+  const [selectedPizza, setSelectedPizza] = useState<PizzaInterface | null>();
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiPosition, setConfettiPosition] = useState({
     x: 0,
@@ -74,6 +70,11 @@ function App() {
     axios
       .get(apiURL)
       .then((response) => {
+        Object.keys(response.data).forEach((category) => {
+          response.data[category].forEach((pizza: PizzaInterface) => {
+            pizza.type = category;
+          });
+        });
         setPizzas(response.data);
         setActiveCatergories(Object.keys(response.data));
       })
@@ -83,7 +84,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let pizzaList: pizzaInterface[] = [];
+    let pizzaList: PizzaInterface[] = [];
     activeCatergories.forEach((category) => {
       pizzaList = [...pizzaList, ...pizzas[category as keyof typeof pizzas]];
     });
@@ -159,6 +160,7 @@ function App() {
               </h3>
             )}
           </div>
+          <Wheel pizzas={pizzaOptions} />
         </div>
         <div id={"possiblePizzas"}>
           <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
