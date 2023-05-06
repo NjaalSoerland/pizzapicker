@@ -97,6 +97,9 @@ function App() {
         <div id={"logoContainer"}>
           <img src={require("./logo.png")} alt={"dumb logo"} />
         </div>
+        <a href="https://github.com/NjaalSoerland">
+          <img src={require("./images/github.png")} alt="" />
+        </a>
       </header>
       <div id={"content"}>
         <img

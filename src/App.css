@@ -23,10 +23,14 @@ header {
   justify-content: center;
 }
 
-header img {
+#logoContainer img {
   margin-left: 20px;
   margin-top: 10px;
   max-width: calc(100% - 40px);
+}
+
+header a {
+  margin-top: 20px;
 }
 
 input {
