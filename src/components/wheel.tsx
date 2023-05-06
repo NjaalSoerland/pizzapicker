@@ -1,13 +1,14 @@
-// Wheel.tsx
 import React, { useState, useRef, useEffect } from "react";
 import Pizza, { PizzaInterface } from "./pizza";
 import style from "./wheel.module.css";
 
 interface Props {
   pizzas: PizzaInterface[];
+  onPizzaSelected: (pizza: PizzaInterface) => void;
+  id?: string;
 }
 
-const Wheel: React.FC<Props> = ({ pizzas }) => {
+const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
   const [spawnedPizzas, setSpawnedPizzas] = useState<PizzaInterface[]>([]);
   const [moving, setMoving] = useState(false);
   const [offset, setOffset] = useState(0);
@@ -20,13 +21,10 @@ const Wheel: React.FC<Props> = ({ pizzas }) => {
     console.log(newSpawnedPizzas);
 
     const targetIndex = newSpawnedPizzas.length - 4;
-    const randomOffset = Math.floor(Math.random() * 100) - 50; // Random number between -50 and 50
-    const newOffset = targetIndex * 200 + randomOffset;
+    const randomOffset = Math.floor(Math.random() * 210) + 1000;
+    const newOffset = targetIndex * 210 - randomOffset;
 
-    // Reset the wheel
     setOffset(0);
-
-    // Schedule a new spin after resetting the wheel
     setTimeout(() => {
       setSpawnedPizzas(newSpawnedPizzas);
       setMoving(true);
@@ -38,7 +36,7 @@ const Wheel: React.FC<Props> = ({ pizzas }) => {
     setMoving(false);
     const selectedPizzaIndex = Math.floor(spawnedPizzas.length - 5);
     const selectedPizza = spawnedPizzas[selectedPizzaIndex];
-    console.log("Selected pizza:", selectedPizza.name);
+    onPizzaSelected(selectedPizza);
   };
 
   useEffect(() => {
@@ -48,22 +46,28 @@ const Wheel: React.FC<Props> = ({ pizzas }) => {
   }, [offset]);
 
   return (
-    <div className={style.container}>
-      <div className={style.centerIndicator}></div>
+    <div>
       <div
-        ref={wheelRef}
-        className={`${style.wheel} ${moving ? style.moveAnimation : ""}`}
-        onTransitionEnd={onTransitionEnd}
+        style={!spawnedPizzas.length ? { opacity: 0 } : {}}
+        className={style.container}
+        id={id}
       >
-        {spawnedPizzas.map((pizza, index) => (
-          <div
-            key={index}
-            className={style.pizzaWrapper}
-            style={{ left: `${index * 200}px` }}
-          >
-            <Pizza pizza={pizza} />
-          </div>
-        ))}
+        <div className={style.centerIndicator}></div>
+        <div
+          ref={wheelRef}
+          className={`${style.wheel} ${moving ? style.moveAnimation : ""}`}
+          onTransitionEnd={onTransitionEnd}
+        >
+          {spawnedPizzas.map((pizza, index) => (
+            <div
+              key={index}
+              className={style.pizzaWrapper}
+              style={{ left: `${index * 210 - 1000}px` }}
+            >
+              <Pizza pizza={pizza} />
+            </div>
+          ))}
+        </div>
       </div>
       <button
         className={style.spinButton}

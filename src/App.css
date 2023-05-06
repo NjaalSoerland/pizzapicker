@@ -101,19 +101,6 @@ label:hover {
   display: inline-block;
 }
 
-#selectedPizza button {
-  background-color: var(--pbRedColor);
-  color: var(--pbYellowColor);
-  border: none;
-  width: 200px;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-#selectedPizza button:hover {
-  cursor: pointer;
-}
-
 #selection {
   text-align: center;
   background-color: var(--pbBackgroundColor);

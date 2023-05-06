@@ -40,9 +40,9 @@ function App() {
     }
   };
 
-  const getRandomPizza = () => {
-    const randomPizza = Math.floor(Math.random() * pizzaOptions.length);
-    setSelectedPizza(pizzaOptions[randomPizza]);
+  const handlePizzaSelected = (pizza: PizzaInterface) => {
+    console.log("Selected pizza:", pizza.name);
+    setSelectedPizza(pizza);
     setConfettiPositionOnButton();
     if (pizzaOptions.length) {
       setShowConfetti(true);
@@ -54,13 +54,13 @@ function App() {
 
   const setConfettiPositionOnButton = () => {
     // get the position of the button with the id "getPizza"
-    const button = document.getElementById("getPizza");
+    const button = document.getElementById("selection");
     if (button) {
       const buttonPosition = button.getBoundingClientRect();
       setConfettiPosition({
-        x: buttonPosition.x,
-        y: buttonPosition.y + 50,
-        w: buttonPosition.width,
+        x: buttonPosition.x + buttonPosition.width / 2,
+        y: buttonPosition.y,
+        w: 50,
         h: buttonPosition.height,
       });
     }
@@ -131,9 +131,6 @@ function App() {
             })}
           </div>
           <div id={"selectedPizza"}>
-            <button onClick={() => getRandomPizza()} id={"getPizza"}>
-              Get pizza
-            </button>
             {showConfetti ? (
               <Confetti
                 numberOfPieces={20}
@@ -147,6 +144,7 @@ function App() {
             ) : null}
             {selectedPizza ? (
               <div>
+                <div id="notification" />
                 <h3>Congratulations! You got {selectedPizza.name}!</h3>
                 <h3>Description:</h3>
                 <div>{selectedPizza.description}</div>
@@ -155,12 +153,12 @@ function App() {
               </div>
             ) : (
               <h3>
-                You haven't gotten a pizza yet, click the button above to see
-                what you get!
+                You haven't gotten a pizza yet, spin the wheel to see what you
+                get!
               </h3>
             )}
           </div>
-          <Wheel pizzas={pizzaOptions} />
+          <Wheel pizzas={pizzaOptions} onPizzaSelected={handlePizzaSelected} />{" "}
         </div>
         <div id={"possiblePizzas"}>
           <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
