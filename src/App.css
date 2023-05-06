@@ -23,10 +23,14 @@ header {
   justify-content: center;
 }
 
-header img {
+#logoContainer img {
   margin-left: 20px;
   margin-top: 10px;
   max-width: calc(100% - 40px);
+}
+
+header a {
+  margin-top: 20px;
 }
 
 input {
@@ -62,6 +66,7 @@ label:hover {
   background-color: var(--pbLightYellowColor);
   color: var(--pbRedColor);
   padding: 0 20px 0 20px;
+  z-index: 1;
 }
 
 #options {
@@ -98,19 +103,6 @@ label:hover {
   text-align: center;
   top: 350px;
   display: inline-block;
-}
-
-#selectedPizza button {
-  background-color: var(--pbRedColor);
-  color: var(--pbYellowColor);
-  border: none;
-  width: 200px;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-#selectedPizza button:hover {
-  cursor: pointer;
 }
 
 #selection {

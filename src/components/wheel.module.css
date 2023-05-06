@@ -1,0 +1,46 @@
+.container {
+  position: relative;
+  overflow: hidden;
+  width: 99%;
+  height: 300px;
+  margin-top: 50px;
+}
+
+.centerIndicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 200px;
+  background-color: var(--pbRedColor);
+  z-index: 2;
+}
+
+.wheel {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  will-change: transform;
+  z-index: 1;
+}
+
+.spinButton {
+  position: relative;
+  top: 0px;
+  background-color: var(--pbRedColor);
+  color: var(--pbYellowColor);
+  border: none;
+  width: 200px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.moveAnimation {
+  transition: transform 12s cubic-bezier(0.5, 0, 0.05, 1);
+}
+
+.pizzaWrapper {
+  position: absolute;
+  top: 0;
+}
