@@ -36,6 +36,10 @@
   font-weight: bold;
 }
 
+.spinButton:hover {
+  cursor: pointer;
+}
+
 .moveAnimation {
   transition: transform 12s cubic-bezier(0.5, 0, 0.05, 1);
 }

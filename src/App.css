@@ -21,6 +21,7 @@ header {
   left: 0;
   display: flex;
   justify-content: center;
+  z-index: 2;
 }
 
 #logoContainer img {

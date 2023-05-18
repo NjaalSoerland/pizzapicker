@@ -21,7 +21,7 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
     console.log(newSpawnedPizzas);
 
     const targetIndex = newSpawnedPizzas.length - 4;
-    const randomOffset = Math.floor(Math.random() * 210) + 1000;
+    const randomOffset = Math.floor(Math.random() * 200) + 963;
     const newOffset = targetIndex * 210 - randomOffset;
 
     setOffset(0);
