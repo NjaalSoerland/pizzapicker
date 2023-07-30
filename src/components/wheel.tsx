@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Pizza, { PizzaInterface } from "./pizza";
 import style from "./wheel.module.css";
+import {LoadingSpinner} from "./LoadingSpinner";
 
 interface Props {
   pizzas: PizzaInterface[];
@@ -51,7 +52,8 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
   }, [offset]);
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
+      { pizzas.length === 0 && <LoadingSpinner /> }
       <div
         style={!spawnedPizzas.length ? { opacity: 0 } : {}}
         className={style.container}

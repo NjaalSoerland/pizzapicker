@@ -95,7 +95,7 @@ function App() {
     <div className="App">
       <header>
         <div id={"logoContainer"}>
-          <img src={require("./logo.png")} alt={"dumb logo"} />
+          <img src={require("./logo.png")} alt={"dumb logo"} width={420} height={125} />
         </div>
         <a href="https://github.com/NjaalSoerland">
           <img src={require("./images/github.png")} alt="" />
@@ -172,6 +172,9 @@ function App() {
           ) : (
             <div>Loading...</div>
           )}
+          <p style={{ visibility: "hidden", height: "1px" }}>
+            V-GF32 FALAFELEN VEGANSKaaaaaaaaa
+          </p>
         </div>
       </div>
     </div>
