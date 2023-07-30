@@ -1,9 +1,10 @@
-.loading-spinner {
+.loadingSpinner {
     position: absolute;
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     animation: rotate 1s linear infinite;
+    color: var(--pbRedColor);
 }
 
 @keyframes rotate {
