@@ -14,8 +14,13 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
   const [offset, setOffset] = useState(0);
   const wheelRef = useRef<HTMLDivElement>(null);
 
+  const audio = new Audio(require("../case_opening_sound_effect.mp3"))
+
   const spinWheel = () => {
     if (pizzas.length === 0) return;
+
+    audio.play().then();
+
     const newSpawnedPizzas = [...Array(100)].map(
       () => pizzas[Math.floor(Math.random() * pizzas.length)]
     );
