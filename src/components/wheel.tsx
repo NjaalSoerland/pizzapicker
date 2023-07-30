@@ -15,10 +15,10 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
   const wheelRef = useRef<HTMLDivElement>(null);
 
   const spinWheel = () => {
+    if (pizzas.length === 0) return;
     const newSpawnedPizzas = [...Array(100)].map(
       () => pizzas[Math.floor(Math.random() * pizzas.length)]
     );
-    console.log(newSpawnedPizzas);
 
     const targetIndex = newSpawnedPizzas.length - 4;
     const randomOffset = Math.floor(Math.random() * 200) + 963;
