@@ -41,7 +41,7 @@
 }
 
 .moveAnimation {
-  transition: transform 12s cubic-bezier(0.5, 0, 0.05, 1);
+  transition: transform 7.6s cubic-bezier(0.5, 0, 0.05, 1);
 }
 
 .pizzaWrapper {
