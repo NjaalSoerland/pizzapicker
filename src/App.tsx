@@ -172,9 +172,6 @@ function App() {
           ) : (
             <div>Loading...</div>
           )}
-          <p style={{ visibility: "hidden", height: "1px" }}>
-            V-GF32 FALAFELEN VEGANSKaaaaaaaaa
-          </p>
         </div>
       </div>
     </div>
