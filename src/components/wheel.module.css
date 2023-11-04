@@ -34,10 +34,20 @@
   width: 200px;
   font-size: 30px;
   font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  background: #761F18;
+  color: #ffd974;
+  border: 3px solid #761F18;
+  transition: all 0.2s ease-out;
 }
+
+
 
 .spinButton:hover {
   cursor: pointer;
+  background-color: #faac18;
+  color: #761F18;
 }
 
 .moveAnimation {
