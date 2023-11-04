@@ -7,7 +7,7 @@ import Wheel from "./components/wheel";
 import { useQuery } from "react-query";
 
 type PizzaCategory = "dessert" | "original" | "tynn" | "vegansk";
-const allPizzaCategories: PizzaCategory[] = ["dessert", "original", "tynn", "vegansk"];
+const pizzaCategoryNames: PizzaCategory[] = ["dessert", "original", "tynn", "vegansk"];
 
 function App() {
   const apiURL = "https://pizzapicker-api.vercel.app/";
@@ -16,9 +16,9 @@ function App() {
     (await axios.get<Record<PizzaCategory, PizzaInterface[]>>(apiURL)).data
   );
 
-  const [activeCategories, setActiveCategories] = useState<PizzaCategory[]>(allPizzaCategories);
+  const [activeCategories, setActiveCategories] = useState<PizzaCategory[]>(pizzaCategoryNames);
 
-  const activePizzaTypes = allPizzaCategories
+  const pizzaOptions = pizzaCategoryNames
     .filter(category => activeCategories.includes(category)) 
     .map(category => pizzaCategories?.[category])
     .flatMap(pizzas => pizzas ?? []);
@@ -44,7 +44,7 @@ function App() {
     console.log("Selected pizza:", pizza.name);
     setSelectedPizza(pizza);
     setConfettiPositionOnButton();
-    if (activePizzaTypes.length >= 1) {
+    if (pizzaOptions.length >= 1) {
       setShowConfetti(true);
       setTimeout(() => {
         setShowConfetti(false);
@@ -96,9 +96,8 @@ function App() {
         />
         <div id={"selection"}>
           <div id={"options"}>
-            {allPizzaCategories.filter(type => pizzaCategories?.[type]?.length ?? 0 > 0)
-            .map(type => {
-              return (
+            {pizzaCategoryNames.filter(categoryName => pizzaCategories?.[categoryName]?.length ?? 0 > 0)
+            .map(type => (
                 <div key={type} style={{ display: "flex", alignItems: "center" }}>
                   <input
                     type="checkbox"
@@ -108,8 +107,8 @@ function App() {
                   />
                   <label htmlFor={type}>{type}</label>
                 </div>
-              );
-            })}
+              )
+            )}
           </div>
           <div id={"selectedPizza"}>
             {showConfetti ? (
@@ -139,12 +138,12 @@ function App() {
               </h3>
             )}
           </div>
-          <Wheel pizzas={activePizzaTypes} onPizzaSelected={handlePizzaSelected} />{" "}
+          <Wheel pizzas={pizzaOptions} onPizzaSelected={handlePizzaSelected} />{" "}
         </div>
         <div id={"possiblePizzas"}>
           <h1 id={"possiblePizzasTitle"}>Options:</h1>
           {isLoading ? <div>Loading...</div> : (
-            activePizzaTypes.map((pizza, index) => {
+            pizzaOptions.map((pizza, index) => {
               return <p key={pizza.name + index.toString()}>{pizza.name}</p>;
             })
           )}
