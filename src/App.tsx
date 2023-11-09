@@ -12,9 +12,15 @@ const pizzaCategoryNames: PizzaCategory[] = ["dessert", "original", "tynn", "veg
 function App() {
   const apiURL = "https://pizzapicker-api.vercel.app/";
 
-  const { data: pizzaCategories, isLoading, error } = useQuery("pizzas", async () =>
-    (await axios.get<Record<PizzaCategory, PizzaInterface[]>>(apiURL)).data
-  );
+  const { data: pizzaCategories, isLoading, error } = useQuery("pizzas", async () => {
+    const pizzaCategories = (await axios.get<Record<PizzaCategory, PizzaInterface[]>>(apiURL)).data
+    for (const category of pizzaCategoryNames) {
+	for (const pizza of pizzaCategories[category] ?? []) {
+		pizza.type = category;
+	}
+    }
+    return pizzaCategories;
+  });
 
   const [activeCategories, setActiveCategories] = useState<PizzaCategory[]>(pizzaCategoryNames);
 
