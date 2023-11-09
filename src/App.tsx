@@ -4,25 +4,31 @@ import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { PizzaInterface } from "./components/pizza";
 import Wheel from "./components/wheel";
+import { useQuery } from "react-query";
+
+type PizzaCategory = "dessert" | "original" | "tynn" | "vegansk";
+const pizzaCategoryNames: PizzaCategory[] = ["dessert", "original", "tynn", "vegansk"];
 
 function App() {
   const apiURL = "https://pizzapicker-api.vercel.app/";
 
-  const [pizzas, setPizzas] = useState<{
-    dessert: PizzaInterface[];
-    original: PizzaInterface[];
-    tynn: PizzaInterface[];
-    vegansk: PizzaInterface[];
-  }>({ dessert: [], original: [], tynn: [], vegansk: [] });
+  const { data: pizzaCategories, isLoading, error } = useQuery("pizzas", async () => {
+    const pizzaCategories = (await axios.get<Record<PizzaCategory, PizzaInterface[]>>(apiURL)).data
+    for (const category of pizzaCategoryNames) {
+	for (const pizza of pizzaCategories[category] ?? []) {
+		pizza.type = category;
+	}
+    }
+    return pizzaCategories;
+  });
 
-  const [activeCatergories, setActiveCatergories] = useState([
-    "original",
-    "tynn",
-    "vegansk",
-    "dessert",
-  ]);
+  const [activeCategories, setActiveCategories] = useState<PizzaCategory[]>(pizzaCategoryNames);
 
-  const [pizzaOptions, setPizzaOptions] = useState<PizzaInterface[]>([]);
+  const pizzaOptions = pizzaCategoryNames
+    .filter(category => activeCategories.includes(category)) 
+    .map(category => pizzaCategories?.[category])
+    .flatMap(pizzas => pizzas ?? []);
+
   const [selectedPizza, setSelectedPizza] = useState<PizzaInterface | null>();
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiPosition, setConfettiPosition] = useState({
@@ -32,14 +38,14 @@ function App() {
     h: 0,
   });
 
-  const handleChange = (type: string) => {
-    if (activeCatergories.includes(type)) {
-      setActiveCatergories(activeCatergories.filter((item) => item !== type));
+  const handleChange = (type: PizzaCategory) => {
+    if (activeCategories.includes(type)) {
+      setActiveCategories(activeCategories.filter((item) => item !== type));
     } else {
-      setActiveCatergories([...activeCatergories, type]);
+      setActiveCategories([...activeCategories, type]);
     }
   };
-
+  
   const handlePizzaSelected = (pizza: PizzaInterface) => {
     console.log("Selected pizza:", pizza.name);
     setSelectedPizza(pizza);
@@ -66,39 +72,15 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get(apiURL)
-      .then((response) => {
-        Object.keys(response.data).forEach((category) => {
-          response.data[category].forEach((pizza: PizzaInterface) => {
-            pizza.type = category;
-          });
-        });
-        setPizzas(response.data);
-        setActiveCatergories(Object.keys(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    let pizzaList: PizzaInterface[] = [];
-    activeCatergories.forEach((category) => {
-      pizzaList = [...pizzaList, ...pizzas[category as keyof typeof pizzas]];
-    });
-    setPizzaOptions(pizzaList);
-  }, [activeCatergories, pizzas]);
 
   return (
     <div className="App">
       <header>
         <div id={"logoContainer"}>
-          <img src={require("./logo.png")} alt={"dumb logo"} />
+          <img src={require("./logo.png")} alt={"dumb logo"} width={420} height={125} />
         </div>
         <a href="https://github.com/NjaalSoerland">
-          <img src={require("./images/github.png")} alt="" />
+          <img src={require("./images/github.png")} alt="" width={90} height={90} />
         </a>
       </header>
       <div id={"content"}>
@@ -119,9 +101,9 @@ function App() {
         />
         <div id={"selection"}>
           <div id={"options"}>
-            {Object.keys(pizzas).map((type) => {
-              return (
-                <div key={type}>
+            {pizzaCategoryNames.filter(categoryName => pizzaCategories?.[categoryName]?.length ?? 0 > 0)
+            .map(type => (
+                <div key={type} style={{ display: "flex", alignItems: "center" }}>
                   <input
                     type="checkbox"
                     onChange={() => handleChange(type)}
@@ -130,8 +112,8 @@ function App() {
                   />
                   <label htmlFor={type}>{type}</label>
                 </div>
-              );
-            })}
+              )
+            )}
           </div>
           <div id={"selectedPizza"}>
             {showConfetti ? (
@@ -164,13 +146,11 @@ function App() {
           <Wheel pizzas={pizzaOptions} onPizzaSelected={handlePizzaSelected} />{" "}
         </div>
         <div id={"possiblePizzas"}>
-          <h1 id={"possiblePizzasTitle"}>Possible options:</h1>
-          {pizzaOptions.length ? (
-            pizzaOptions.map((pizza) => {
-              return <p key={pizza.name}>{pizza.name}</p>;
+          <h1 id={"possiblePizzasTitle"}>Options:</h1>
+          {isLoading ? <div>Loading...</div> : (
+            pizzaOptions.map((pizza, index) => {
+              return <p key={pizza.name + index.toString()}>{pizza.name}</p>;
             })
-          ) : (
-            <div>Loading...</div>
           )}
         </div>
       </div>
