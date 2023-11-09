@@ -50,7 +50,7 @@ function App() {
     console.log("Selected pizza:", pizza.name);
     setSelectedPizza(pizza);
     setConfettiPositionOnButton();
-    if (pizzaOptions.length >= 1) {
+    if (pizzaOptions.length) {
       setShowConfetti(true);
       setTimeout(() => {
         setShowConfetti(false);
@@ -72,7 +72,6 @@ function App() {
     }
   };
 
-  console.log(activeCategories);
 
   return (
     <div className="App">
