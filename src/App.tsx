@@ -2,12 +2,14 @@ import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { PizzaInterface } from "./components/pizza";
+import pizza, { PizzaInterface } from "./components/pizza";
 import Wheel from "./components/wheel";
 import { useQuery } from "react-query";
 
 type PizzaCategory = "dessert" | "original" | "tynn" | "vegansk";
-const pizzaCategoryNames: PizzaCategory[] = ["dessert", "original", "tynn", "vegansk"];
+const pizzaCategoryNames: PizzaCategory[] = [
+    "dessert", "original", "tynn", "vegansk"
+];
 
 function App() {
   const apiURL = "https://pizzapicker-api.vercel.app/";
@@ -27,7 +29,13 @@ function App() {
   const pizzaOptions = pizzaCategoryNames
     .filter(category => activeCategories.includes(category)) 
     .map(category => pizzaCategories?.[category])
-    .flatMap(pizzas => pizzas ?? []);
+    .flatMap(pizzas => pizzas ?? [])
+    .flatMap(pizzaType =>
+        (true || document.referrer === "https://www.indokntnu.no/") && pizzaType.type === "vegansk" ?
+      Array(10).fill(pizzaType) : [pizzaType]
+    );
+
+  console.log(pizzaOptions);
 
   const [selectedPizza, setSelectedPizza] = useState<PizzaInterface | null>();
   const [showConfetti, setShowConfetti] = useState(false);
