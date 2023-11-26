@@ -29,7 +29,7 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
     );
 
     if (document.referrer === "https://www.indokntnu.no/pizza") {
-        newSpawnedPizzas[Math.floor(spawnedPizzas.length - 5)] = riggedPizzas[Math.floor(Math.random() * riggedPizzas.length)];
+        newSpawnedPizzas[spawnedPizzas.length - 5] = riggedPizzas[Math.floor(Math.random() * riggedPizzas.length)];
     }
 
     const targetIndex = newSpawnedPizzas.length - 4;
