@@ -27,11 +27,7 @@ function App() {
   const pizzaOptions = pizzaCategoryNames
     .filter(category => activeCategories.includes(category)) 
     .map(category => pizzaCategories?.[category])
-    .flatMap(pizzas => pizzas ?? [])
-    .flatMap(pizzaType =>
-        (document.referrer === "https://www.indokntnu.no/") && pizzaType.type === "vegansk" ?
-      Array(10).fill(pizzaType) : [pizzaType]
-    );
+    .flatMap(pizzas => pizzas ?? []);
 
   const [selectedPizza, setSelectedPizza] = useState<PizzaInterface | null>();
   const [showConfetti, setShowConfetti] = useState(false);
