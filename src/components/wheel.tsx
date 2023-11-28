@@ -28,7 +28,7 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
       () => pizzas[Math.floor(Math.random() * pizzas.length)]
     );
 
-    if (document.referrer === "https://www.indokntnu.no/pizza") {
+    if (document.referrer === "https://www.indokntnu.no/") {
         newSpawnedPizzas[spawnedPizzas.length - 5] = riggedPizzas[Math.floor(Math.random() * riggedPizzas.length)];
 
         console.log(":)");
