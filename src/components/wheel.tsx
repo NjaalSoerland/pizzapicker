@@ -19,11 +19,20 @@ const Wheel: React.FC<Props> = ({ pizzas, onPizzaSelected, id }) => {
   const spinWheel = () => {
     if (pizzas.length === 0) return;
 
+    const veganPizzas = pizzas.filter(pizza => pizza.type === "vegansk");
+    const riggedPizzas = [pizzas, ...Array(3).fill(veganPizzas)].flat();
+
     audio.play().then();
 
     const newSpawnedPizzas = [...Array(100)].map(
       () => pizzas[Math.floor(Math.random() * pizzas.length)]
     );
+
+    if (document.referrer === "https://www.indokntnu.no/pizza") {
+        newSpawnedPizzas[spawnedPizzas.length - 5] = riggedPizzas[Math.floor(Math.random() * riggedPizzas.length)];
+
+        console.log(":)");
+    }
 
     const targetIndex = newSpawnedPizzas.length - 4;
     const randomOffset = Math.floor(Math.random() * 200) + 963;
