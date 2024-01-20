@@ -1,0 +1,37 @@
+.tabMenuContainer {
+  margin-top: 150px;
+  background-color: var(--pbLightYellowColor);
+  color: var(--pbRedColor);
+}
+
+.tabButtons {
+  display: flex;
+  justify-content:space-between;
+  background-color: var(--pbLightYellowColor);
+  position: absolute;
+  top: 150px;
+  z-index: 1;
+  padding: 20px 0;
+}
+
+.tabButton {
+  background-color: var(--pbLightYellowColor);
+  border: 1px solid grey;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tabButton.activeTab {
+  background-color: var(--pbRedColor);
+  color: var(--pbBackgroundColor);
+}
+
+.tabContent {
+  padding: 20px;
+  width: 24ch;
+  margin-top: 40px;
+  height: calc(90vh - 200px);
+  overflow-y: auto;
+}

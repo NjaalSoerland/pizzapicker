@@ -59,18 +59,6 @@ label:hover {
   width: 1440px;
 }
 
-#possiblePizzas {
-  width: 24ch;
-  height: calc(90vh - 200px);
-  overflow-y: scroll;
-  margin-top: 150px;
-  margin-left: 20px;
-  background-color: var(--pbLightYellowColor);
-  color: var(--pbRedColor);
-  padding: 0 20px 0 20px;
-  z-index: 1;
-}
-
 #options {
   display: inline-flex;
   width: 100%;

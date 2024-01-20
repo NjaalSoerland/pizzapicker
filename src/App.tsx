@@ -5,6 +5,7 @@ import Confetti from "react-confetti";
 import { PizzaInterface } from "./components/pizza";
 import Wheel from "./components/wheel";
 import { useQuery } from "react-query";
+import TabMenu, { Tab } from "./components/tabmenu";
 
 type PizzaCategory = "dessert" | "original" | "tynn" | "vegansk";
 const pizzaCategoryNames: PizzaCategory[] = ["dessert", "original", "tynn", "vegansk"];
@@ -71,6 +72,26 @@ function App() {
       });
     }
   };
+
+  const tabs: Tab[] = [
+    { 
+        name: 'Options', 
+        content: (
+            <div id="possiblePizzas">
+                <h1 id="possiblePizzasTitle">Options:</h1>
+                {isLoading ? <div>Loading...</div> : (
+                    pizzaOptions.map((pizza, index) => (
+                        <p key={pizza.name + index.toString()}>{pizza.name}</p>
+                    ))
+                )}
+            </div>
+        ) 
+    },
+    { 
+        name: 'Order', 
+        content: <div>Content for Order</div> // Replace with actual content
+    }
+];
 
 
   return (
@@ -145,14 +166,7 @@ function App() {
           </div>
           <Wheel pizzas={pizzaOptions} onPizzaSelected={handlePizzaSelected} />{" "}
         </div>
-        <div id={"possiblePizzas"}>
-          <h1 id={"possiblePizzasTitle"}>Options:</h1>
-          {isLoading ? <div>Loading...</div> : (
-            pizzaOptions.map((pizza, index) => {
-              return <p key={pizza.name + index.toString()}>{pizza.name}</p>;
-            })
-          )}
-        </div>
+        <TabMenu tabs={tabs} />
       </div>
     </div>
   );
