@@ -69,6 +69,35 @@ label:hover {
   background-color: var(--pbLightYellowColor);
 }
 
+#orderList li {
+  background-color: var(--pbBackgroundColor);
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  position: relative; 
+  width: 100%;
+  margin-left: -40px;
+  padding-right: 30px;
+}
+
+#orderList li p {
+  flex: 1; 
+  margin: 0; 
+  white-space: normal; 
+}
+
+#orderList .remove {
+  padding: 5px 10px;
+  background-color: var(--pbRedColor);
+  color: var(--pbBackgroundColor);
+  border: none;
+  position: absolute;
+  right: 10px; 
+  top: 7px; 
+  cursor: pointer;
+}
+
 #pizzaOne {
   position: absolute;
   right: 0;

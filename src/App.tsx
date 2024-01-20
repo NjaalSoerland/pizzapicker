@@ -24,6 +24,7 @@ function App() {
   });
 
   const [activeCategories, setActiveCategories] = useState<PizzaCategory[]>(pizzaCategoryNames);
+  const [orders, setOrders] = useState<PizzaInterface[]>([]);
 
   const pizzaOptions = pizzaCategoryNames
     .filter(category => activeCategories.includes(category)) 
@@ -53,6 +54,7 @@ function App() {
     setConfettiPositionOnButton();
     if (pizzaOptions.length) {
       setShowConfetti(true);
+      handleAddToOrder(pizza);
       setTimeout(() => {
         setShowConfetti(false);
       }, 3000);
@@ -73,6 +75,16 @@ function App() {
     }
   };
 
+  const handleAddToOrder = (pizza: PizzaInterface) => {
+    setOrders(currentOrders => [...currentOrders, pizza]);
+  };
+
+  const handleRemoveFromOrder = (pizzaName: string) => {
+    setOrders(currentOrders =>
+      currentOrders.filter(pizza => pizza.name !== pizzaName)
+    );
+  };
+
   const tabs: Tab[] = [
     { 
         name: 'Options', 
@@ -87,9 +99,21 @@ function App() {
             </div>
         ) 
     },
-    { 
-        name: 'Order', 
-        content: <div>Content for Order</div> // Replace with actual content
+    {
+      name: 'Order',
+      content: (
+        <div id="orderList">
+          <h1>Your Order:</h1>
+          <ul>
+            {orders.map((pizza, index) => (
+              <li key={pizza.name + index.toString()}>
+                <p>{pizza.name}</p> {}
+                <button className="remove" onClick={() => handleRemoveFromOrder(pizza.name)}>X</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
     }
 ];
 
